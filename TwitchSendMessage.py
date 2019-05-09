@@ -1,5 +1,5 @@
 from TwitchWebsocket import TwitchWebsocket
-import json, time
+import json, time, threading
 
 class Settings:
     def __init__(self, bot):
@@ -37,7 +37,6 @@ class TwitchSendMessage:
         self.chan = None
         self.nick = None
         self.auth = None
-        self.message = "/w CubieDev Test!"
         self.sent = False
         
         # Fill previously initialised variables with data from the settings.txt file
@@ -51,6 +50,7 @@ class TwitchSendMessage:
                                   callback=self.message_handler,
                                   capability=["membership", "tags", "commands"],
                                   live=True)
+        GetInput(self.ws)
         self.ws.start_bot()
 
     def set_settings(self, host, port, chan, nick, auth):
@@ -62,12 +62,20 @@ class TwitchSendMessage:
 
     def message_handler(self, m):
         print(m)
-        if m.type == "PRIVMSG":
-            # Send a message after it receives a random message
-            if not self.sent:
-                self.ws.send_message(self.message)
-                print("Sent")
-                self.sent = True
 
+class GetInput(threading.Thread):
+
+    def __init__(self, ws):
+        threading.Thread.__init__(self)
+        self.name = "GetInput"
+
+        self.ws = ws
+        self.start()
+    
+    def run(self):
+        while True:
+            inp = input(">")
+            self.ws.send_message(inp)
+    
 if __name__ == "__main__":
     TwitchSendMessage()
