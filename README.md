@@ -4,12 +4,12 @@ Send singular messages from a Bot account to chat
 ---
 # Explanation
 
-When the bot has started, it will start listening to chat messages in the channel listed in the settings.txt file. When a message is sent in this channel, the bot will send `self.message` from TwitchSendMessage.py.
+When the bot has started, it will start listening to chat messages in the channel listed in the settings.txt file. The bot will print all the information it receives. Furthermore, everything you type in the console will be sent to the chat.
 
 ---
 
 # Note
-Unlike my other bots, this one is not designed to be used by people with no programming experience. This repo is more of a showcase or backup.
+Unlike my other bots, this one is not designed to be used by people with no programming experience. This repo is more of a showcase or backup. I only use this repo for testing/debugging purposes.
 
 ---
 
